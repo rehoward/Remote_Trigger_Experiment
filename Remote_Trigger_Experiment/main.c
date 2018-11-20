@@ -1,8 +1,8 @@
 //Timing generator for remote triggering of ammonia sensors
 
 
-#include <msp430g2553.h>
-#include <msp430.h> 
+
+#include "main.h"
 
 void main(void)
 {
@@ -28,9 +28,7 @@ void main(void)
   P3REN = 0xFF;										// all P3 input resistors enabled
   P3OUT = 0x00;										// all P3 resistors set to pulldown
   
-#define TENTH_SECOND  12500
-#define ONE_SECOND  125000
-#define ONE_HOUR    450000000
+
 
 
   while(1)
@@ -40,13 +38,13 @@ void main(void)
 			P1OUT |= BIT0;					//P1.0 High and P1.1 low.	Also lights LED
 			_delay_cycles(TENTH_SECOND);	//delay cycle for P1.6/P1.7 to prevent packet collisions.
 			P1OUT |= BIT6;					//P1.6 High and P1.7 low.	Also lights LED
-			_delay_cycles(100*ONE_SECOND);  //On time
+			_delay_cycles(ON_TIME);  //On time
 
 			P1OUT &= ~BIT0;					//P1.0 low and P1.1 low.	Also turns off LED
 			_delay_cycles(TENTH_SECOND);	//delay cycle for P1.6/P1.7 to prevent packet collisions.
 			P1OUT &= ~BIT6;					//P1.6 low and P1.7 low.	Also turns off LED
 
-			_delay_cycles(ONE_HOUR);         //Off time
+			_delay_cycles(OFF_TIME);         //Off time
   }
 }
 

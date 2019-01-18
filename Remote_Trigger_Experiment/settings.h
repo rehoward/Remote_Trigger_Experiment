@@ -12,6 +12,8 @@
 
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
+//Clock set to 1 MHz calibrated
+//SMCLK is DCO/8
 
 #define TENTH_SECOND  	     	 12500
 #define ONE_SECOND  	    	125000
@@ -28,7 +30,7 @@
 //#define OFF_TIME 			10*ONE_SECOND
 //#define OFF_TIME 			ONE_HUNDRED_SECOND
 //#define OFF_TIME 			ONE_HOUR
-define OFF_TIME 			THREE_HOUR
+#define OFF_TIME 			THREE_HOUR
 
 
 #endif /* SETTINGS_H_ */

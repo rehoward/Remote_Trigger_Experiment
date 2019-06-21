@@ -28,9 +28,9 @@
 
 //#define OFF_TIME 			ONE_SECOND
 //#define OFF_TIME 			10*ONE_SECOND
-//#define OFF_TIME 			ONE_HUNDRED_SECOND
+#define OFF_TIME 			ONE_HUNDRED_SECOND
 //#define OFF_TIME 			ONE_HOUR
-#define OFF_TIME 			THREE_HOUR
+//#define OFF_TIME 			THREE_HOUR
 
 
 #endif /* SETTINGS_H_ */

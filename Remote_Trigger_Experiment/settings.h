@@ -12,15 +12,15 @@
 
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
-//Clock set to 1 MHz calibrated
-//SMCLK is DCO/8
+//Clock set using 32768 XTAL
 
-#define TENTH_SECOND  	     	 12500
-#define ONE_SECOND  	    	125000
-#define TEN_SECOND			   1250000
-#define ONE_HUNDRED_SECOND	  12500000
-#define ONE_HOUR    	 	 450000000
-#define THREE_HOUR			1350000000
+#define	XTAL_Freq				32768
+#define TENTH_SECOND  	     	 3277
+#define ONE_SECOND  	    	XTAL_Freq
+#define TEN_SECOND			   XTAL_Freq*10		//17 seconds by stopwatch when divide by 8
+#define ONE_HUNDRED_SECOND	  XTAL_Freq*100		//171 seconds by stopwatch when divide by 8
+#define ONE_HOUR    	 	 XTAL_Freq*3600
+#define THREE_HOUR		   XTAL_Freq*3*3600
 
 //#define ON_TIME_ONE		ONE_SECOND
 #define ON_TIME_ONE			10*ONE_SECOND

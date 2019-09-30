@@ -8,6 +8,7 @@
 	  //CdS photoresistor.  Dark over 100K, direct sun cloudy 140 ohms, deep shade 2K ohms.
 	  //Will start with 5K ohms as good threshold.
 	  //Set P2.5 high, 4.7K to P2.4 and sensor to P2.4 to P2.3 (set low)
+	  // Pump 2 25mL/minute level
 
 
 #include "main.h"
@@ -26,9 +27,9 @@ void main(void)
   P1REN = 0x00;             						// Resistors disabled on inputs
   P1OUT = 0x00;           							// Port 1 all set low
 
-  P2DIR &= ~BIT4;									// Port 2 set to output except P2.4 set to input for light sensor
-  P2REN = 0x00;										// Port 2 resistor disabled.
-  P2OUT = BIT5;										// all P2 resistors set to pulldown and all outputs set low
+  P2DIR = ~BIT4;									// Port 2 set to output except P2.4 set to input for light sensor
+  P2REN = BIT4;										// Port 2 resistor disabled except for P2.4.
+  P2OUT = BIT5;								// all P2 resistors set to pulldown and all outputs set low
   	  	  	  	  	  	  	  	  	  	  	  	  	// except P2.5 which is Vcc to light sensor
   	  	  	  	  	  	  	  	  	  	  	  	  	//P2.3 stays low as Vdd for light sensor
 
@@ -42,18 +43,18 @@ void main(void)
   {
 
 
-	  	  //  if(P2IN & BIT4)	{						//Check is P2.4 is high => not dark.
+	  	    if(P2IN & BIT4)	{						//Check is P2.4 is high => not dark.
 				P1OUT |= BIT0;						//If light, turn on red LED P1.0
-				_delay_cycles( ONE_HUNDRED_SECOND);
+				_delay_cycles( ONE_SECOND);
 				P1OUT &= ~BIT0;
-				_delay_cycles( ONE_HUNDRED_SECOND);
+				_delay_cycles( ONE_SECOND);
 				P1OUT |= BIT0;
-			//}
-			//else{
-			//	P1OUT &= ~BIT0;
-			//}
-
-/*			P2OUT |= BIT2;					//P2.2 High.  Turns on motor 1
+			}
+			else{
+				P1OUT &= ~BIT0;
+			}
+	  	  /*
+			P2OUT |= BIT2;					//P2.2 High.  Turns on motor 1
 			P2OUT |= BIT1;					//P2.1 High.  Turns on UV LED 1
 
 			_delay_cycles(ON_TIME_ONE); 	//On time for Motor1 and UV LED 1

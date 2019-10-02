@@ -79,8 +79,8 @@ void main(void)
 				P1OUT |= BIT0 + BIT6 + BIT4;		//Turn on wash pump (P1.4) and red and green board LEDs
 				P2OUT |= BIT2 + BIT0;				//Turn on PUMP1 (P2.2) and Pump2 (P2.0)
 				_delay_cycles(PRIME_TIME);			//Prime feeder hoses
-				P1OUT &= ~BIT0 + ~BIT6 + ~BIT4;		//Turn off wash pump and red and green board LEDs
-				P2OUT &= ~BIT2 + ~BIT0;				//Turn off pump 1 and 2
+				P1OUT &= ~(BIT0 | BIT6 | BIT4);		//Turn off wash pump and red and green board LEDs
+				P2OUT &= ~(BIT2 | BIT0);			//Turn off pump 1 and 2
 
 /*													//Routine for testing light sensor
 				if(P2IN & BIT4)	{					//Check is P2.4 is high => not dark.
@@ -111,7 +111,7 @@ void main(void)
 		  P2OUT &= ~BIT1;					//Turn off UVLED1
 		  P1OUT |= BIT4 + BIT0 + BIT6;		//Turn on WashPump and both board LEDs
 		  _delay_cycles(WASH_TIME);			//Wash out feeder
-		  P1OUT &= ~BIT4 + ~BIT0 + ~BIT6;	//Turn off WashPump and both board LEDs
+		  P1OUT &= ~(BIT4 |BIT0 |BIT6);		//Turn off WashPump and both board LEDs
 	  }
 	else{
 			_delay_cycles(DARK_CHECK);		//Wait before moving to next cycle and checking again for light level
@@ -128,7 +128,7 @@ void main(void)
 		  P1OUT &= ~BIT5;					//Turn off UVLED2
 		  P1OUT |= BIT4 + BIT0 + BIT6;		//Turn on WashPump and both board LEDs
 	  	  _delay_cycles(WASH_TIME);			//Wash out feeder
-	  	  P1OUT &= ~BIT4 + ~BIT0 + ~BIT6;	//Turn off WashPump and both board LEDs
+	  	  P1OUT &= ~(BIT4 | BIT0 | BIT6);	//Turn off WashPump and both board LEDs
   	  }
 	  	else{
 	  			_delay_cycles(DARK_CHECK);	//Wait before moving to next cycle and checking again for light level
@@ -138,3 +138,22 @@ void main(void)
   }
 }
 
+
+
+
+/*Testing code for pins
+// 	    if(P2IN & BIT4)	{						//Check is P2.4 is high => not dark.
+			P1OUT |= BIT0 + BIT4 +BIT3 + BIT5 + BIT6;
+			P2OUT |= BIT0 + BIT1 + BIT2;   //If light, turn on red LED P1.0
+			_delay_cycles( 5*ONE_SECOND);
+			P1OUT &= ~(BIT0 | BIT4 | BIT3 | BIT5 | BIT6);
+			P2OUT &= ~(BIT0 | BIT1 | BIT2) ;
+			//P2OUT &= BIT0 + ~BIT1 + ~BIT2 + ~BIT3 + ~BIT4 + BIT5 + ~BIT6 + ~BIT7 ;
+		//	P2OUT = 0x20;
+			_delay_cycles( 5*ONE_SECOND);
+
+	//	}
+	//	else{
+	//		P1OUT &= ~BIT0;
+	//	}
+*/

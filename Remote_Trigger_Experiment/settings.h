@@ -12,6 +12,15 @@
 
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
+
+#define PUMP_1		BIT2	//PUMP_1 is P2.2
+#define PUMP_2		BIT0	//PUMP_2 is P2.0
+#define UVLED_1		BIT1	//UVLED_1 is P2.1
+#define UVLED_2		BIT5	//UVLED_2 is P1.5
+#define WASH_PUMP	BIT4	//WASH is P1.4
+#define RED_LED		BIT0	//RED_LED is P1.0
+#define GREEN_LED	BIT6	//GREEN_LED is P1.6
+
 //Clock set using 1 MHz XTAL divided by 8
 
 #define	XTAL_Freq				125000
@@ -42,7 +51,7 @@
 
 */
 //Test timing
-#define PRIME_TIME			ONE_SECOND*5			//Initial prime of hoses from feeder and wash resevoirs
+#define PRIME_TIME			ONE_SECOND*20			//Initial prime of hoses from feeder and wash resevoirs
 #define WASH_TIME 			10*ONE_SECOND			//Time to wash out feeded after each feeding cycle
 #define DARK_CHECK			TEN_SECOND				//Time to wait before checking light level again.
 #define FEEDING_TIME		TEN_SECOND				//Time pump is on at beginning of each cycle to supply food.

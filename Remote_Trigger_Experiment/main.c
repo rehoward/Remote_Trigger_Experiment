@@ -102,16 +102,16 @@ void main(void)
   {
 	  if(P2IN & BIT4)	{					//Check is P2.4 is high => not dark.
 
-		  P1OUT |= BIT0;					//If light, turn on red LED (P1.0)
-		  P2OUT |= BIT1 + BIT2;				//Turn on feeder Pump1 (P2.2) and UVLED1 (P2.1)
-		  _delay_cycles(FEEDING_TIME);		//Wait for Pump1 to deliver food
-		  P2OUT &= ~BIT2;					//Turn off Pump1
-		  P1OUT &= ~BIT0;					//Turn off red LED
-		  _delay_cycles(ON_TIME_ONE); 		//On time for UVLED1
-		  P2OUT &= ~BIT1;					//Turn off UVLED1
-		  P1OUT |= BIT4 + BIT0 + BIT6;		//Turn on WashPump and both board LEDs
-		  _delay_cycles(WASH_TIME);			//Wash out feeder
-		  P1OUT &= ~(BIT4 |BIT0 |BIT6);		//Turn off WashPump and both board LEDs
+		  P1OUT |= RED_LED;								//If light, turn on red LED (P1.0)
+		  P2OUT |= PUMP_1 + UVLED_1;					//Turn on feeder Pump1 (P2.2) and UVLED1 (P2.1)
+		  _delay_cycles(FEEDING_TIME);					//Wait for Pump1 to deliver food
+		  P2OUT &= ~PUMP_1;								//Turn off Pump1
+		  P1OUT &= ~RED_LED;							//Turn off red LED
+		  _delay_cycles(ON_TIME_ONE); 					//On time for UVLED1
+		  P2OUT &= ~UVLED_1;							//Turn off UVLED1
+		  P1OUT |= WASH_PUMP + RED_LED + GREEN_LED;		//Turn on WashPump and both board LEDs
+		  _delay_cycles(WASH_TIME);						//Wash out feeder
+		  P1OUT &= ~(WASH_PUMP|RED_LED|GREEN_LED);		//Turn off WashPump and both board LEDs
 	  }
 	else{
 			_delay_cycles(DARK_CHECK);		//Wait before moving to next cycle and checking again for light level
@@ -119,16 +119,17 @@ void main(void)
 
 	  if(P2IN & BIT4)	{						//Check is P2.4 is high => not dark.
 
-		  P1OUT |= BIT6 + BIT5;				//If light, turn on green LED (P1.6) and UVLED2 (P1.5)
-		  P2OUT |= BIT0 + BIT2;				//Turn on feeder Pump2 (P2.0)
-		  _delay_cycles(FEEDING_TIME);		//Wait for Pump2 to deliver food
-		  P2OUT &= ~BIT0;					//Turn off Pump2
-		  P1OUT &= ~BIT6;					//Turn off green LED
-		  _delay_cycles(ON_TIME_TWO); 		//On time for UVLED2
-		  P1OUT &= ~BIT5;					//Turn off UVLED2
-		  P1OUT |= BIT4 + BIT0 + BIT6;		//Turn on WashPump and both board LEDs
-	  	  _delay_cycles(WASH_TIME);			//Wash out feeder
-	  	  P1OUT &= ~(BIT4 | BIT0 | BIT6);	//Turn off WashPump and both board LEDs
+		  P1OUT |= UVLED_2 + GREEN_LED;					//If light, turn on green LED (P1.6) and UVLED2 (P1.5)
+		  P2OUT |= PUMP_2;								//Turn on feeder Pump2 (P2.0)
+		  P1OUT |= UVLED_2;								//Turn on UVLED_1
+		  _delay_cycles(FEEDING_TIME);					//Wait for Pump2 to deliver food
+		  P2OUT &= ~PUMP_2;								//Turn off Pump2
+		  P1OUT &= ~GREEN_LED;							//Turn off green LED
+		  _delay_cycles(ON_TIME_TWO); 					//On time for UVLED2
+		  P1OUT &= ~UVLED_2;							//Turn off UVLED2
+		  P1OUT |= WASH_PUMP + RED_LED + GREEN_LED;		//Turn on WashPump and both board LEDs
+		  _delay_cycles(WASH_TIME);						//Wash out feeder
+		  P1OUT &= ~(WASH_PUMP|RED_LED|GREEN_LED);		//Turn off WashPump and both board LEDs
   	  }
 	  	else{
 	  			_delay_cycles(DARK_CHECK);	//Wait before moving to next cycle and checking again for light level

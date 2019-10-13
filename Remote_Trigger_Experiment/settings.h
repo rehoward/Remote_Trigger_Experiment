@@ -13,13 +13,14 @@
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 
-#define PUMP_1		BIT2	//PUMP_1 is P2.2
-#define PUMP_2		BIT0	//PUMP_2 is P2.0
-#define UVLED_1		BIT1	//UVLED_1 is P2.1
-#define UVLED_2		BIT5	//UVLED_2 is P1.5
-#define WASH_PUMP	BIT4	//WASH is P1.4
-#define RED_LED		BIT0	//RED_LED is P1.0
-#define GREEN_LED	BIT6	//GREEN_LED is P1.6
+#define PUMP_1			BIT2	//PUMP_1 is P2.2
+#define PUMP_2			BIT0	//PUMP_2 is P2.0
+#define UVLED_1			BIT1	//UVLED_1 is P2.1
+#define UVLED_2			BIT5	//UVLED_2 is P1.5
+#define WASH_PUMP_ONE	BIT4	//WashPumpOne is P1.4
+#define WASH_PUMP_TWO	BIT2	//WashPumpTwo is P1.2
+#define RED_LED			BIT0	//RED_LED is P1.0
+#define GREEN_LED		BIT6	//GREEN_LED is P1.6
 
 //Clock set using 1 MHz XTAL divided by 8
 
@@ -38,10 +39,11 @@
 
 //Production timing
 /*
-#define PRIME_TIME			ONE_HUNDRED_SECOND		//Initial prime of hoses from feeder and wash resevoirs
-#define WASH_TIME 			10*ONE_SECOND			//Time to wash out feeded after each feeding cycle
+#define WASH_PRIME_TIME			ONE_SECOND*20			//Initial prime of hoses from feeder and wash resevoirs
+													//NB, can extend with "Reset" button on boot
+#define WASH_TIME 			30*ONE_SECOND			//Time to wash out feeded after each feeding cycle
 #define DARK_CHECK			HALF_HOUR				//Time to wait before checking light level again.
-#define FEEDING_TIME		THIRTY_SECOND			//Time pump is on at beginning of each cycle to supply food.
+#define FEEDING_TIME		30*ONE_SECOND			//Time pump is on at beginning of each cycle to supply food.
 #define ON_TIME_ONE			TWO_HOUR				//PUMP 1 on
 #define ON_TIME_TWO			TWO_HOUR + HALF_HOUR	//PUMP 2 on
 #define ON_TIME_THREE		THREE_HOUR				//pump 1 on
@@ -51,7 +53,8 @@
 
 */
 //Test timing
-#define PRIME_TIME			ONE_SECOND*20			//Initial prime of hoses from feeder and wash resevoirs
+#define FEED_PRIME_TIME		ONE_SECOND*20			//Initial prime of hoses from feeder resevoir
+#define WASH_PRIME_TIME		ONE_SECOND*20			//Initial prime of hoses from wash resevoir
 #define WASH_TIME 			10*ONE_SECOND			//Time to wash out feeded after each feeding cycle
 #define DARK_CHECK			TEN_SECOND				//Time to wait before checking light level again.
 #define FEEDING_TIME		TEN_SECOND				//Time pump is on at beginning of each cycle to supply food.

@@ -21,7 +21,7 @@
 		//Set P2.5 high, 4.7K to P2.4 and sensor to P2.4 to P2.3 (set low)
 
 	//Basic cycle
-		//Power up reset followed by timing cycle to prime all 3 pumps for PRIME_TIME
+		//Power up reset followed by timing cycle to prime all 4 pumps for WASH_PRIME_TIME and FEED_PRIME_TIME
 
 		//Pump1, UVLED1, and red LED turned on.
 		//Pump1 turned off after FEEDING_TIME

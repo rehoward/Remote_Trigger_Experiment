@@ -38,8 +38,8 @@
 #define THREE_HOUR		   XTAL_Freq*3*3600
 
 //Production timing
-/*
-#define WASH_PRIME_TIME			ONE_SECOND*20			//Initial prime of hoses from feeder and wash resevoirs
+#define FEED_PRIME_TIME		ONE_SECOND*40			//Initial prime of hoses from feeder resevoir
+#define WASH_PRIME_TIME		ONE_SECOND*20			//Initial prime of hoses from wash resevoir
 													//NB, can extend with "Reset" button on boot
 #define WASH_TIME 			30*ONE_SECOND			//Time to wash out feeded after each feeding cycle
 #define DARK_CHECK			HALF_HOUR				//Time to wait before checking light level again.
@@ -51,7 +51,7 @@
 #define ON_TIME_FIVE		THREE_HOUR				//pump 1 on
 #define ON_TIME_SIX			TWO_HOUR + HALF_HOUR	//pump 2 on
 
-*/
+/*
 //Test timing
 #define FEED_PRIME_TIME		ONE_SECOND*20			//Initial prime of hoses from feeder resevoir
 #define WASH_PRIME_TIME		ONE_SECOND*20			//Initial prime of hoses from wash resevoir
@@ -64,7 +64,7 @@
 #define ON_TIME_FOUR		TEN_SECOND				//pump 2 on
 #define ON_TIME_FIVE		TEN_SECOND				//pump 1 on
 #define ON_TIME_SIX			TEN_SECOND				//pump 2 on
-
+*/
 
 #endif /* SETTINGS_H_ */
 

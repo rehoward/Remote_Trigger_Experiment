@@ -21,7 +21,11 @@
 		//Set P2.5 high, 4.7K to P2.4 and sensor to P2.4 to P2.3 (set low)
 
 	//Basic cycle
-		//Power up reset followed by timing cycle to prime all 4 pumps for WASH_PRIME_TIME and FEED_PRIME_TIME
+		//Power up reset followed by timing cycle to prime all 4 pumps
+		//this version runs two abbreviated cycles (one for each feeder)
+		//the same as the production cycles except for the duration of the wait time.
+		//Wash and feed times are the same as for production and
+		//each cycle ends with the feeder washed out.
 
 		//Pump1, UVLED1, and red LED turned on.
 		//Pump1 turned off after FEEDING_TIME
@@ -101,23 +105,34 @@ void main(void)
 
 setMSP430Pins();
   
-  //Prime all pumps
-				//Turn on wash pumps (P1.4, P1.2) and red and green board LEDs (P1.0 and P1.6)
-				P1OUT |= GREEN_LED + RED_LED + WASH_PUMP_ONE + WASH_PUMP_TWO;		//Turn on wash pumps (P1.4, P1.2) and red and green board LEDs
-				_delay_cycles(WASH_PRIME_TIME);			//Prime feeder hoses
-				P1OUT = 0x00;							//Pumps and LEDs off.
-				_delay_cycles(ONE_SECOND);				//Flash LEDs to signal second half of prime cycle
-														//Note, can't run all 4 pumps off battery at once.
-				//Turn on PUMP1 (P2.2), Pump2 (P2.0), red, and green LEDs
-				P1OUT |= GREEN_LED + RED_LED;
-				P2OUT |= PUMP_1 + PUMP_2;
-				_delay_cycles(FEED_PRIME_TIME);		//Prime feeder hoses and wash hoses
+  //Prime pumps by doing short cycles.  Don't check light levels.
+//Cycle 1 prime
 
-				//Turn off wash pumps and red and green board LEDs
-				P1OUT &= ~(GREEN_LED | RED_LED);
 
-				P2OUT &= ~(PUMP_1 | PUMP_2);			//Turn off pump 1 and 2
+				 P1OUT |= RED_LED;							//If light, turn on red LED (P1.0)
+				 P2OUT |= PUMP_1 + UVLED_1;					//Turn on feeder Pump1 (P2.2) and UVLED1 (P2.1)
+				 _delay_cycles(FEEDING_TIME);				//Wait for Pump1 to deliver food
+				 P2OUT &= ~PUMP_1;							//Turn off Pump1
+				 P1OUT &= ~RED_LED;							//Turn off red LED
+				 _delay_cycles(TEN_SECOND); 				//On time for UVLED1 with pump off
+				 P2OUT &= ~UVLED_1;							//Turn off UVLED1
+				 WashCycleOne();							//Run WASH_PUMP_ONE for WASH_TIME
 
+//Cycle 2 prime
+
+				P1OUT |= UVLED_2 + GREEN_LED;				//If light, turn on green LED (P1.6) and UVLED2 (P1.5)
+				P2OUT |= PUMP_2;							//Turn on feeder Pump2 (P2.0)
+				P1OUT |= UVLED_2;							//Turn on UVLED_1
+				_delay_cycles(FEEDING_TIME);				//Wait for Pump2 to deliver food
+				P2OUT &= ~PUMP_2;							//Turn off Pump2
+				P1OUT &= ~GREEN_LED;						//Turn off green LED
+				_delay_cycles(TEN_SECOND); 					//On time for UVLED2
+				P1OUT &= ~UVLED_2;							//Turn off UVLED2
+				WashCycleTwo();								//Run WASH_PUMP_TWO for WASH_TIME
+
+				_delay_cycles(TEN_SECOND); 					//All lights off.  Window for running prime again.
+
+//Start continuous loop
 
   while(1)
 
@@ -155,6 +170,7 @@ setMSP430Pins();
 					  P1OUT &= ~UVLED_2;						//Turn off UVLED2
 					  WashCycleTwo();
 		}
+
 		else{
 				  	_delay_cycles(DARK_CHECK);		//Wait before moving to next cycle and checking again for light level
 		}
@@ -191,6 +207,7 @@ setMSP430Pins();
 	  					  P1OUT &= ~UVLED_2;						//Turn off UVLED2
 	  					  WashCycleTwo();
 	  		}
+
 	  		else{
 	  				  	_delay_cycles(DARK_CHECK);		//Wait before moving to next cycle and checking again for light level
 	  		}
@@ -227,21 +244,14 @@ setMSP430Pins();
 	  		  					  P1OUT &= ~UVLED_2;						//Turn off UVLED2
 	  		  					  WashCycleTwo();
 	  		  		}
+
 	  		  		else{
 	  		  				  	_delay_cycles(DARK_CHECK);		//Wait before moving to next cycle and checking again for light level
 	  		  		}
 
 
-
-
-
-
-
-
-
-
-  }		//for whil()
-}	// for main()
+  }		//for while()
+}		// for main()
 
 
 
